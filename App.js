@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View } from 'react-native';
+import { Settings, Text, View } from 'react-native';
 import { useAssets} from 'expo-asset';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
@@ -19,12 +19,20 @@ import Chat from './screens/Chat';
 import ChatHeader from './components/ChatHeader';
 import SplashScreen from './components/SplashScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeScreen from './screens/HomeScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import CustomDrawer from './navigators/CustomDrawer';
+import SettingsScreen from './screens/SettingsScreen';
+import BugScreen from './screens/BugScreen';
 
 
 
 
-const Stack = createStackNavigator()
-const Tab = createMaterialTopTabNavigator()
+
+const Stack = createStackNavigator();
+const Tab = createMaterialTopTabNavigator();
+const Drawer = createDrawerNavigator();
+const Bottom = createBottomTabNavigator();
 
 
 function App() {
@@ -55,16 +63,7 @@ function App() {
           <Stack.Screen name="signIn" component={SignIn} />
         </Stack.Navigator>
       ) : (
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: '#3D7900',
-              shadowOpacity: 0,
-              elevation: 0,
-            },
-            headerTintColor: colors.white,
-          }}
-        >
+        <Stack.Navigator initialRouteName="mainScreen" >
           {!currUser.displayName && (
             <Stack.Screen
               name="profile"
@@ -73,7 +72,9 @@ function App() {
             />
           )}
 
-          <Stack.Screen name="mainScreen" options={{headerShown: false}} component={SplashScreen}/>
+          <Stack.Screen name="mainScreen" options={{headerShown: false}} component={SplashScreen} />
+
+          
           <Stack.Screen
             name="home"
             options={{ title: "Chats" }}
@@ -85,11 +86,33 @@ function App() {
             component={Contacts}
           />
           <Stack.Screen name="chat" component={Chat} options={{headerTitle: (props) => <ChatHeader {...props}/>}}/>
+          <Stack.Screen name="Settings" options={{headerShown: false}} component={DrawerRoutes} />
+          <Stack.Screen name="bugScreen" options={{headerShown: false}} component={BugScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
   );
 }
+
+
+function DrawerRoutes(){
+  return(
+      <Drawer.Navigator 
+      drawerContent={props => <CustomDrawer {...props}/>} 
+      screenOptions={{
+        headerShown: false,
+        drawerActiveBackgroundColor: '#3D7900',
+        drawerActiveTintColor: '#FFBF00',
+        drawerInactiveTintColor: '#FFBF00',
+        }}>
+           <Drawer.Screen name="Settings" component={SettingsScreen} />
+        <Drawer.Screen name="mainScreen" component={SplashScreen} />
+ 
+      </Drawer.Navigator>
+
+  );
+}
+
 
 
 function Home() {

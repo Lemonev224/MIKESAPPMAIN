@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import HomeScreen from '../screens/HomeScreen'
 
 
+
 const BGColor = '#3D7900'
 
 export default function SplashScreen() {
@@ -144,6 +145,7 @@ export default function SplashScreen() {
                         ]
                     }}>Mike Gould Sports Therapy</Animated.Text>
 
+                   
                 </Animated.View>
 
             </Animated.View>

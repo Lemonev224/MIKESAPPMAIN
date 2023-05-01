@@ -4,7 +4,8 @@ import { Animated, Dimensions, Image, ScrollView, View, StyleSheet, Text } from 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as WebBrowser from 'expo-web-browser';
 import { useNavigation } from '@react-navigation/core'
-
+import { Ionicons } from '@expo/vector-icons';
+import { withNavigation, DrawerActions } from 'react-navigation'
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons';
@@ -24,8 +25,11 @@ export default function HomeScreen() {
                     paddingBottom: 25,
                     alignItems: 'center'
                 }}>
-
-
+            <View style={{marginTop: '10%', justifyContent: 'flex-start', width: '100%'}}>
+            <TouchableOpacity style={{marginTop: '10%'}} onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer()) }>
+                <Ionicons name='menu' size={40} color='#3D7900'/>
+            </TouchableOpacity> 
+            </View>
             <View style={styles.BookingContainer}>
                 <Text style={styles.Heading}>
                     Need to book? Visit our website
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
       backgroundColor:'#3D7900',
       borderRadius: 20,
       alignItems: 'center',
-      marginTop: '20%'
+      marginTop: '10%'
     },
     TopExerciseContainer:{
         marginTop: 40,
@@ -100,7 +104,6 @@ const styles = StyleSheet.create({
       color: '#FFBF00',
       fontSize: 19,
       fontWeight: 'bold',
-      marginLift: 15,
       marginTop: 30,
       marginBottom: 30
     },
