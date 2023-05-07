@@ -42,7 +42,7 @@ export default function SplashScreen() {
                     startAnimation,
                     {
                         // For same Height for non safe Area Devices...
-                        toValue: -Dimensions.get('window').height + (edges.top + 65),
+                        toValue: -Dimensions.get('window').height + (edges.top + 120),
                         useNativeDriver: true
                     }
                 ),
@@ -68,7 +68,7 @@ export default function SplashScreen() {
                         // Moving to Right Most...
                         toValue: {
                             x: (Dimensions.get("window").width / 2) - 35,
-                            y: (Dimensions.get('window').height / 2) - 5
+                            y: (Dimensions.get('window').height / 2) -35
                         },
                         useNativeDriver: true
                     }
@@ -80,7 +80,7 @@ export default function SplashScreen() {
                         toValue: {
                             x: 0,
                             // Since image size is 100...
-                            y: (Dimensions.get('window').height / 2) - 90
+                            y: (Dimensions.get('window').height / 2) - 120
                         },
                         useNativeDriver: true
                     }

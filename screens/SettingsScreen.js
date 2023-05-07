@@ -6,20 +6,27 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Avatar from '../components/Avatar';
 import { auth } from '../firebase';
 import { Ionicons } from '@expo/vector-icons';
+import { DrawerActions } from '@react-navigation/native';
+import { signOut } from 'firebase/auth';
+import firebase from '../firebase';
 
 export default function SettingsScreen() {
     const navigation = useNavigation();
     const { currentUser } = auth;
-
+ 
+    signOutUser = async () => {
+      try {
+          await firebase.auth().signOut();
+      } catch (e) {
+          console.log(e);
+      }
+  }
 
 
   return (
 <SafeAreaView style={{flex: 1, backgroundColor: '#fgfgfg'}}>
     <ScrollView contentContainerStyle={styles.container}>
     <View style={{justifyContent: 'flex-start', width: '100%'}}>
-            <TouchableOpacity style={{marginTop: '10%'}} onPress={() => navigation.toggleDrawer() }>
-                <Ionicons name='menu' size={40} color='#848484'/>
-            </TouchableOpacity> 
       </View>
       <View style={styles.header}>
         <Text style={styles.title}>Settings</Text>
@@ -37,72 +44,28 @@ export default function SettingsScreen() {
       <View style={styles.section}>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionHeaderText}>Account</Text>
+          <Text style={styles.sectionHeaderText}>Help</Text>
         </View>
 
         <View style={styles.sectionBody}>
           <View style={styles.rowWrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('bugScreen')}>
               <View style={styles.row}>
-                <Text>Change profile image</Text>
+                <Text>Report a bug</Text>
               </View>
             </TouchableOpacity>
           </View>
 
           <View style={styles.rowWrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('adminAuthenticator')}>
               <View style={styles.row}>
-                <Text>hjdks</Text>
+                <Text>admin?</Text>
               </View>
             </TouchableOpacity>
           </View>
 
-          <View style={styles.rowWrapper}>
-            <TouchableOpacity>
-              <View style={styles.row}>
-                <Text>hjdks</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-
       </View>
-
-      <View style={styles.section}>
-
-<View style={styles.sectionHeader}>
-  <Text style={styles.sectionHeaderText}>Help</Text>
-</View>
-
-<View style={styles.sectionBody}>
-  <View style={styles.rowWrapper}>
-    <TouchableOpacity onPress={() => navigation.navigate('bugScreen')}>
-      <View style={styles.row}>
-        <Text>Report a Bug</Text>
       </View>
-    </TouchableOpacity>
-  </View>
-
-  </View>
-</View>
-
-<View style={styles.section}>
-
-<View style={styles.sectionHeader}>
-  <Text style={styles.sectionHeaderText}>Help</Text>
-</View>
-
-<View style={styles.sectionBody}>
-  <View style={styles.rowWrapper}>
-    <TouchableOpacity>
-      <View style={styles.row}>
-        <Text>admin?</Text>
-      </View>
-    </TouchableOpacity>
-  </View>
-
-</View>
-</View>
 
     </ScrollView>
 </SafeAreaView>

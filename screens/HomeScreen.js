@@ -3,10 +3,9 @@ import React from 'react';
 import { Animated, Dimensions, Image, ScrollView, View, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as WebBrowser from 'expo-web-browser';
-import { useNavigation } from '@react-navigation/core'
-import { Ionicons } from '@expo/vector-icons';
-import { withNavigation, DrawerActions } from 'react-navigation'
 
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -26,9 +25,7 @@ export default function HomeScreen() {
                     alignItems: 'center'
                 }}>
             <View style={{marginTop: '10%', justifyContent: 'flex-start', width: '100%'}}>
-            <TouchableOpacity style={{marginTop: '10%'}} onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer()) }>
-                <Ionicons name='menu' size={40} color='#3D7900'/>
-            </TouchableOpacity> 
+         
             </View>
             <View style={styles.BookingContainer}>
                 <Text style={styles.Heading}>
@@ -45,7 +42,7 @@ export default function HomeScreen() {
                 <Text style={styles.Heading}>
                     Check out our Workout System!
                 </Text>
-                <TouchableOpacity style={styles.Button}>
+                <TouchableOpacity style={styles.Button} onPress={() => navigation.toggleDrawer()}>
                     <Text style={styles.ButtonText}>Visit</Text>
                 </TouchableOpacity>
             </View>

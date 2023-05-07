@@ -20,10 +20,15 @@ import ChatHeader from './components/ChatHeader';
 import SplashScreen from './components/SplashScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import CustomDrawer from './navigators/CustomDrawer';
 import SettingsScreen from './screens/SettingsScreen';
 import BugScreen from './screens/BugScreen';
+import 'react-native-gesture-handler';
+import BottomTabNavigator from './navigators/BottomTabNavigator';
+import AdminAuthenticatior from './adminScreens/AdminAuthenticatior';
+import AdminPanel from './adminScreens/AdminPanel';
+import FetchBugScreen from './adminScreens/FetchBugScreen';
 
 
 
@@ -31,7 +36,6 @@ import BugScreen from './screens/BugScreen';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
-const Drawer = createDrawerNavigator();
 const Bottom = createBottomTabNavigator();
 
 
@@ -63,7 +67,7 @@ function App() {
           <Stack.Screen name="signIn" component={SignIn} />
         </Stack.Navigator>
       ) : (
-        <Stack.Navigator initialRouteName="mainScreen" >
+        <Stack.Navigator initialRouteName="Home" >
           {!currUser.displayName && (
             <Stack.Screen
               name="profile"
@@ -71,14 +75,17 @@ function App() {
               options={{ headerShown: false }}
             />
           )}
-
-          <Stack.Screen name="mainScreen" options={{headerShown: false}} component={SplashScreen} />
-
+            <Stack.Screen
+              name="Home"
+              component={FetchBugScreen}
+              options={{ headerShown: false }}
+            />
           
           <Stack.Screen
             name="home"
-            options={{ title: "Chats" }}
+            options={{ title: "Chats"}}
             component={Home}
+            
           />
           <Stack.Screen
             name="contacts"
@@ -86,33 +93,14 @@ function App() {
             component={Contacts}
           />
           <Stack.Screen name="chat" component={Chat} options={{headerTitle: (props) => <ChatHeader {...props}/>}}/>
-          <Stack.Screen name="Settings" options={{headerShown: false}} component={DrawerRoutes} />
           <Stack.Screen name="bugScreen" options={{headerShown: false}} component={BugScreen} />
+          <Stack.Screen name="adminAuthenticator" options={{headerShown: false}} component={AdminAuthenticatior} />
+          <Stack.Screen name="adminPanel" options={{headerShown: false}} component={SplashScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
   );
 }
-
-
-function DrawerRoutes(){
-  return(
-      <Drawer.Navigator 
-      drawerContent={props => <CustomDrawer {...props}/>} 
-      screenOptions={{
-        headerShown: false,
-        drawerActiveBackgroundColor: '#3D7900',
-        drawerActiveTintColor: '#FFBF00',
-        drawerInactiveTintColor: '#FFBF00',
-        }}>
-           <Drawer.Screen name="Settings" component={SettingsScreen} />
-        <Drawer.Screen name="mainScreen" component={SplashScreen} />
- 
-      </Drawer.Navigator>
-
-  );
-}
-
 
 
 function Home() {

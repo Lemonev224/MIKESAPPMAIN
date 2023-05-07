@@ -78,7 +78,7 @@ export default function Profile() {
                 Profile Info
             </Text>
             <Text style={styles.ProfileText}>
-               provide your name and optional profile photo
+               provide your full name and optional profile photo
             </Text>
             <TouchableOpacity
           onPress={handleProfilePicture}
@@ -118,7 +118,7 @@ export default function Profile() {
 
     }}>
             <TextInput
-          placeholder="Type your name"
+          placeholder="Full Name"
           value={displayName}
           onChangeText={setDisplayName}
           style={styles.Input}
